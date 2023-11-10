@@ -2,10 +2,9 @@ size = int(input())
 data = input().split()
 unique = list(dict.fromkeys(data))
 count = []
-interval = [[0, 0], 0]
+interval = [0, 0]
 
 for _ in range(len(unique)):
-    # print(data.count(unique[_]), unique[_])
     count.append([data.count(unique[_]), unique[_]])
 
 for _ in range(size):
@@ -15,21 +14,24 @@ for _ in range(len(unique)):
     unique[_] = abs(int(unique[_]))
 unique = list(dict.fromkeys(unique))
 
-interval[0][1] = unique[0]
 for _ in range(len(unique)):
-    print(data.count(unique[_]), unique[_])
-    interval[0] = interval[0] if interval[0][1] < unique[_] else [data.count(unique[_]), unique[_]]
-    # print(data.count(unique[_]), unique[_])
+    # print(interval[1], unique[_], data.count(unique[_]))
+    if interval[0] >= data.count(unique[_]):
+        if interval[1] < unique[_]:
+            interval = [data.count(interval[1]), interval[1]]
+        else:
+            interval = interval
+    else:
+        interval = [data.count(unique[_]), unique[_]]
+data = [0, 0]
+# print(count, interval, data) 
 
-print(count, interval)
+for _ in range(len(count)):
+    # print(abs(int(count[_][1])) == interval[1], count[_][1])
+    if int(count[_][1]) == interval[1]:
+        data[0] = count[_][0]
+    elif int(count[_][1]) == (-1 * interval[1]):
+        data[1] = count[_][0]
 
-#print(max(count))
-
-# data.sort()
-# print(data)
-# count = []
-
-# for _ in range(size):
-    # print(data.count(data[_]), data[_])
-
-# print(count[0])
+print(interval[1])
+print(data[0], data[1])
