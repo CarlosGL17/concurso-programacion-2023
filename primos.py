@@ -1,12 +1,13 @@
 import math
-
-def isPrime(n):
-  if n <= 1:
-    return False
-  for i in range(2, int(n**0.5) + 1):
-    if n % i == 0:
-      return False
-  return True
-
-n = int(input())
-print('si es primo' if isPrime(n) else 'no es primo')
+number = int(input())
+prime_number = []
+for i in range(2, number + 1):
+    prime_number.append(i)
+i = 2
+while i <= int(math.sqrt(number)):
+    if i in prime_number:
+        for j in range(i * 2, number + 1, i):
+            if j in prime_number:
+                prime_number.remove(j)
+    i = i + 1
+print (prime_number)
